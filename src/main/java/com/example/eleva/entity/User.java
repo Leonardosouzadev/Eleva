@@ -1,12 +1,9 @@
 package com.example.eleva.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.annotation.processing.Generated;
 
 @Entity
 @Table(schema = "eleva", name = "users")
@@ -16,8 +13,8 @@ import javax.annotation.processing.Generated;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(nullable = false)
     private String name;
@@ -29,8 +26,11 @@ public class User {
     private String password;
 
     public User(String name, String email, String password) {
-        
+        this.name = name;
+        this.email = email;
+        this.password = password;
     }
+
 }
 
 
