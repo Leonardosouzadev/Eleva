@@ -1,10 +1,13 @@
 package com.example.eleva.controller;
 
 
-import com.example.eleva.controller.dto.AuthenticatorDTO;
+import com.example.eleva.controller.dto.AuthenticationDTO;
+import com.example.eleva.controller.dto.LoginDTO;
 import com.example.eleva.controller.dto.RegisterDTO;
 import com.example.eleva.entity.User;
+import com.example.eleva.entity.UserRole;
 import com.example.eleva.repository.UserRepository;
+import com.example.eleva.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,13 +26,16 @@ public class AuthenticationController {
     private AuthenticationManager authenticatorManager;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody AuthenticatorDTO request) {
-        var userPassword = new UsernamePasswordAuthenticationToken(request.login(), request.password());
+    public ResponseEntity login(@RequestBody AuthenticationDTO request) {
+        var userPassword = new UsernamePasswordAuthenticationToken(request.email(), request.password());
         var auth = this.authenticatorManager.authenticate(userPassword);
 
-        return ResponseEntity.ok().build();
+        var token = tokenService.generateToken((User) auth.getPrincipal());
+        return ResponseEntity.ok(new LoginDTO(token));
     }
 
     @PostMapping("/register")
@@ -38,7 +44,7 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().build();
         };
         String encryptedPassword = new BCryptPasswordEncoder().encode(request.password());
-        User newUser = new User(request.name(), request.email(), encryptedPassword, request.role());
+        User newUser = new User(request.name(), request.email(), encryptedPassword, UserRole.USER);
 
         this.userRepository.save(newUser);
 

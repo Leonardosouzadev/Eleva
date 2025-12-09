@@ -24,10 +24,10 @@ public class UserService {
         return new UserResponseDTO(newUser.getName(), newUser.getEmail());
     }
 
-    public UserResponseDTO deleteById(UserRequestDTO request) {
-        User user  = userRepository.findByEmail(request.getEmail());
-        userRepository.delete(user);
-
-        return new UserResponseDTO(user.getName(), user.getEmail());
-    }
+//    public UserResponseDTO deleteById(UserRequestDTO request) {
+//        User user  = userRepository.findByEmail(request.getEmail());
+//        userRepository.delete(user);
+//
+//        return new UserResponseDTO(user.getName(), user.getEmail());
+//    }
 }
