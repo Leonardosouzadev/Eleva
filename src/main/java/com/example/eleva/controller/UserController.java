@@ -22,9 +22,9 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<UserResponseDTO> deleteById(@RequestBody UserRequestDTO request) {
-        UserResponseDTO response = userService.deleteById(request);
-        return ResponseEntity.ok(response);
-    }
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<UserResponseDTO> deleteById(@RequestBody UserRequestDTO request) {
+//        UserResponseDTO response = userService.deleteById(request);
+//        return ResponseEntity.ok(response);
+//    }
 }
