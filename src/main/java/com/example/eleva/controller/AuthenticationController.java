@@ -4,8 +4,10 @@ package com.example.eleva.controller;
 import com.example.eleva.controller.dto.AuthenticationDTO;
 import com.example.eleva.controller.dto.LoginDTO;
 import com.example.eleva.controller.dto.RegisterDTO;
+import com.example.eleva.entity.Profile;
 import com.example.eleva.entity.User;
 import com.example.eleva.entity.UserRole;
+import com.example.eleva.repository.ProfileRepository;
 import com.example.eleva.repository.UserRepository;
 import com.example.eleva.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class AuthenticationController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private ProfileRepository profileRepository;
+    @Autowired
     TokenService tokenService;
 
     @PostMapping("/login")
@@ -45,6 +49,11 @@ public class AuthenticationController {
         };
         String encryptedPassword = new BCryptPasswordEncoder().encode(request.password());
         User newUser = new User(request.name(), request.email(), encryptedPassword, UserRole.USER);
+
+        Profile newProfile = new Profile();
+
+        newProfile.setUser(newUser);
+        newUser.setProfile(newProfile);
 
         this.userRepository.save(newUser);
 
