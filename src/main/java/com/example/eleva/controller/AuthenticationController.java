@@ -5,6 +5,7 @@ import com.example.eleva.controller.dto.AuthenticationDTO;
 import com.example.eleva.controller.dto.LoginDTO;
 import com.example.eleva.controller.dto.RegisterDTO;
 import com.example.eleva.entity.Profile;
+import com.example.eleva.entity.Task;
 import com.example.eleva.entity.User;
 import com.example.eleva.entity.UserRole;
 import com.example.eleva.repository.ProfileRepository;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
