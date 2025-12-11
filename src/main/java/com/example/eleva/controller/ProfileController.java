@@ -1,5 +1,6 @@
 package com.example.eleva.controller;
 
+import com.example.eleva.controller.dto.ProfileDTO;
 import com.example.eleva.controller.dto.ProfileImageDTO;
 import com.example.eleva.entity.Profile;
 import com.example.eleva.service.ProfileService;
@@ -15,6 +16,12 @@ public class ProfileController {
 
     public ProfileController(ProfileService profileService) {
         this.profileService = profileService;
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<ProfileDTO> getProfile(@PathVariable String userId){
+        Profile newProfile = profileService.getProfile(userId);
+        return  ResponseEntity.ok(new ProfileDTO(newProfile.getProfileName(), newProfile.getProfileBiography(), newProfile.getProfileImage()));
     }
 
     @PutMapping("/image-update")
