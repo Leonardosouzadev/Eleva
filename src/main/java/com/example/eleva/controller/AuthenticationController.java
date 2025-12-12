@@ -25,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthenticationController {
+public class    AuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticatorManager;
