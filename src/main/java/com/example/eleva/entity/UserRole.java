@@ -1,8 +1,8 @@
 package com.example.eleva.entity;
 
 public enum UserRole {
-    USER("USER"),
-    ADMIN("ADMIN");
+    ADMIN("admin"),
+    USER("user");
 
     private final String role;
 
